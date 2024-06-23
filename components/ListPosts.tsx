@@ -24,8 +24,8 @@ const ListPosts: React.FC = () => {
       );
       const res = await response.json();
 
-      function extractImageUrlsFromData(dataArray) {
-        return dataArray.map((item) => {
+      function extractImageUrlsFromData(dataArray: any) {
+        return dataArray.map((item: any) => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(item.content, "text/html");
           const imgElements = doc.querySelectorAll("img");
@@ -44,7 +44,7 @@ const ListPosts: React.FC = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = datas.slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const savedPage = sessionStorage.getItem("currentPage");
@@ -121,21 +121,22 @@ const ListPosts: React.FC = () => {
       </div>
 
       <div className="flex justify-center mt-8">
-        {[...Array(Math.ceil(datas.length / itemsPerPage)).keys()].map(
-          (pageNumber) => (
-            <button
-              key={pageNumber}
-              onClick={() => paginate(pageNumber + 1)}
-              className={`mx-1 px-3 py-1  rounded-md ${
-                currentPage === pageNumber + 1
-                  ? "bg-orange text-white"
-                  : "text-black"
-              }`}
-            >
-              {pageNumber + 1}
-            </button>
-          )
-        )}
+        {Array.from(
+          { length: Math.ceil(datas.length / itemsPerPage) },
+          (_, index) => index
+        ).map((pageNumber) => (
+          <button
+            key={pageNumber}
+            onClick={() => paginate(pageNumber + 1)}
+            className={`mx-1 px-3 py-1 rounded-md ${
+              currentPage === pageNumber + 1
+                ? "bg-orange text-white"
+                : "text-black"
+            }`}
+          >
+            {pageNumber + 1}
+          </button>
+        ))}
       </div>
     </section>
   );
