@@ -22,3 +22,12 @@ export const header: Header[] = [
     label: "Contact",
   },
 ];
+
+export interface ListPostProps {
+  index: number;
+  item: {
+    published_at: string;
+    title: string;
+    content: string[];
+  };
+}

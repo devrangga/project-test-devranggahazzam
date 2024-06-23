@@ -1,7 +1,8 @@
+import { ListPostProps } from "@/constant";
 import Image from "next/image";
 import React from "react";
 
-const ListPost: React.FC = ({ index, item }) => {
+const ListPost: React.FC<ListPostProps> = ({ index, item }) => {
   const convertDateToIndonesian = (dateString: string) => {
     const months = [
       "Januari",
